@@ -1,0 +1,157 @@
+Mongo DB commands for Databases:
+
+    View All Databases - 
+        show dbs;
+
+    Switch/Create database (If given name is not available then create it will be created) -
+        use <dbName>;
+
+    Check current database - 
+        db
+
+    Delete database -
+        db.dropDatabase();
+
+Mongo DB commands for Collections/Tables:
+
+    View All Collections/Tables -
+        show collections;
+
+    Create Collection/Table -
+        db.createCollection('<collectionName/TableName>');
+
+    Delete Collection/Table -
+        db.<collectionName/TableName>.drop();
+
+Mongo DB commands for Document/Rows:
+    
+    Insert One Document/Row -
+        db.<collectionName/TableName>.insert({
+            'name': 'Shalabh',
+            'lang': 'Scala',
+            'contributing_Since': '6'
+        })
+
+        eg:
+        db.contentTable.insert({
+            'name': 'Shalabh',
+            'lang': 'Scala',
+            'contributing_Since': '6'
+        })
+
+    Insert Many Documents/Rows -
+        db.<collectionName/TableName>.insertMany([{
+            'name': 'Tahir',
+            'lang': 'Scala',
+            'contributing_Since': '6'
+        },{
+            'name': 'Suraj',
+            'lang': 'Scala',
+            'contributing_Since': '6'
+        }])
+
+        eg:
+        db.contentTable.insertMany([{
+            'name': 'Tahir',
+            'lang': 'Scala',
+            'contributing_Since': '6'
+        },{
+            'name': 'Suraj',
+            'lang': 'Scala',
+            'contributing_Since': '6'
+        }])
+
+    Show All Document/Rows -  
+          db.<collectionName/TableName>.find(); 
+          db.<collectionName/TableName>.find().pretty();
+
+          eg:
+          db.contentTable.find();
+          db.contentTable.find().pretty();
+
+    Search Document/Rows in a collection:
+        db.<collectionName/TableName>.find({lang:'Scala'}); 
+
+        eg:
+        db.contentTable.find({lang:'Scala',"name" : "Tahir"}); 
+        db.contentTable.find({lang:'Scala',"name" : "Tahir"}).pretty();
+        db.contentTable.find({lang:'Scala',"name" : "Tahir"}).pretty().limit(1);
+        db.contentTable.findOne({lang:'Scala'}); 
+
+    Count Document/Rows in a collection:   
+        db.<collectionName/TableName>.count(); 
+
+        eg:
+        db.contentTable.count();  
+
+    Sort Document/Rows in a collection:     
+        db.<collectionName/TableName>.find().sort({name:1}); 
+
+        eg:
+        db.contentTable.find().sort({name:1}); // Increasing
+        db.contentTable.find().sort({name:-1}); // Decreasing
+
+    Update / Upsert Document/Rows in a collection:  
+        db.<collectionName/TableName>.update({"name" : "Tahir"},
+        {
+            'lang': 'Scala, Java',
+            'contributing_Since': '6'
+        })
+
+        eg:
+        db.contentTable.update({"name" : "Tahir"},
+        {
+            'name': 'Tahir',
+            'lang': 'Scala, Java',
+            'contributing_Since': '4'
+        })
+
+        db.contentTable.update({"name" : "Pramod"},
+        {
+            'name': 'Pramod',
+            'lang': 'Scala',
+            'contributing_Since': '8'
+        }, {upsert: true})
+
+    Use Increment operator in Document/Rows of a collection -
+
+        db.<collectionName/TableName>.update({"name" : "Suraj"},
+        {$inc:{
+            'contributing_Since': '1'
+        }})
+
+        eg:
+        db.contentTable.update({"name" : "Suraj"},
+        {$inc:{
+            'contributing_Since': '1'
+        }})
+
+    Use Rename operator in Document/Rows of a collection -
+
+        db.<collectionName/TableName>.update({"name" : "Suraj"},
+        {$rename:{
+            'contributing_Since': 'contributing'
+        }})
+
+        eg:
+        db.contentTable.update({"name" : "Suraj"},
+        {$rename:{
+            'contributing_Since': 'contributing'
+        }})   
+
+    Delete Document/Rows of a collection - 
+
+        db.<collectionName/TableName>.remove({"name" : "Suraj"})
+
+        eg:
+        db.contentTable.remove({"name" : "Suraj"})
+
+    "Less than/ Greater Than" operator in Document/Rows of a collection -
+
+        db.<collectionName/TableName>.find({"contributing_Since" : {$lt: 4}})
+        db.<collectionName/TableName>.find({"contributing_Since" : {$gt: 4}})
+        db.<collectionName/TableName>.find({"contributing_Since" : {$lte: 4}}) // less than equal to
+        db.<collectionName/TableName>.find({"contributing_Since" : {$gte: 4}}) // greater than equal to
+        eg:
+        db.contentTable.find({ contributing_Since: {$lt: 4}})
+        db.contentTable.find({ contributing_Since: {$gt: 4}})
