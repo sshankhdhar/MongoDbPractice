@@ -1,0 +1,91 @@
+Mongo DB commands for Databases:
+
+    View All Databases - 
+        show dbs;
+
+    Switch/Create database (If given name is not available then create it will be created) -
+        use <dbName>;
+
+    Check current database - 
+        db
+
+    Delete database -
+        db.dropDatabase();
+
+Mongo DB commands for Collections/Tables:
+
+    View All Collections/Tables -
+        show collections;
+
+    Create Collection/Table -
+        db.createCollection('<collectionName/TableName>');
+
+    Delete Collection/Table -
+        db.<collectionName/TableName>.drop();
+
+Mongo DB commands for Document/Rows:
+    
+    Insert One Document/Row -
+        db.<collectionName/TableName>.insert({
+            'name': 'Shalabh',
+            'lang': 'Scala',
+            'contributing_Since': '6'
+        })
+
+        eg:
+        db.contentTable.insert({
+            'name': 'Shalabh',
+            'lang': 'Scala',
+            'contributing_Since': '6'
+        })
+
+    Insert Many Documents/Rows -
+        db.<collectionName/TableName>.insertMany([{
+            'name': 'Tahir',
+            'lang': 'Scala',
+            'contributing_Since': '6'
+        },{
+            'name': 'Suraj',
+            'lang': 'Scala',
+            'contributing_Since': '6'
+        }])
+
+        eg:
+        db.contentTable.insertMany([{
+            'name': 'Tahir',
+            'lang': 'Scala',
+            'contributing_Since': '6'
+        },{
+            'name': 'Suraj',
+            'lang': 'Scala',
+            'contributing_Since': '6'
+        }])
+
+    Show All Document/Rows -  
+          db.<collectionName/TableName>.find(); 
+          db.<collectionName/TableName>.find().pretty();
+
+          eg:
+          db.contentTable.find();
+          db.contentTable.find().pretty();
+
+    Search Document/Rows in a collection:
+        db.<collectionName/TableName>.find({lang:'Scala'}); 
+
+        eg:
+        db.contentTable.find({lang:'Scala',"name" : "Tahir"}); 
+        db.contentTable.find({lang:'Scala',"name" : "Tahir"}).pretty();
+        db.contentTable.find({lang:'Scala',"name" : "Tahir"}).pretty().limit(1);
+
+    Count Document/Rows in a collection:   
+        db.<collectionName/TableName>.count(); 
+
+        eg:
+        db.contentTable.count();  
+
+    Sort Document/Rows in a collection:     
+        db.<collectionName/TableName>.find().sort({name:1}); 
+
+        eg:
+        db.contentTable.find().sort({name:1}); // Increasing
+        db.contentTable.find().sort({name:-1}); // Decreasing
